@@ -11,35 +11,29 @@
 class Solution {
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
         
-        List<Integer> list = new ArrayList<>();
-
-        ListNode current = list1;
-        int i = 0;
+        ListNode dummy = new ListNode(0);
+        dummy.next = list1;
         
-        while(current != null) {
-            if(a > i) {
-                list.add(current.val);
-            } else if(a == i) {
-                ListNode current2 = list2;
-                while(current2 != null) {
-                    list.add(current2.val);
-                    current2 = current2.next;
-                }
-            } else if(b < i) {
-                list.add(current.val);
-            }
-            current = current.next;
-            i++;
-        }
-
-        ListNode answer = new ListNode(list.get(0));
-        ListNode currentAnswer = answer;
-        for(int j = 1; j < list.size(); j++) {
-            currentAnswer.next = new ListNode(list.get(j));
-            currentAnswer = currentAnswer.next;
+        ListNode prev = dummy;
+        for (int i = 0; i < a; i++) {
+            prev = prev.next;
         }
         
-        return answer;
+        ListNode curr = prev.next;
+        for (int i = a; i <= b; i++) {
+            curr = curr.next;
+        }
+        
+        prev.next = list2;
+        
+        ListNode list2Tail = list2;
+        while (list2Tail.next != null) {
+            list2Tail = list2Tail.next;
+        }
+        
+        list2Tail.next = curr;
+        
+        return dummy.next;
         
     }
     
