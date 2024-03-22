@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -12,24 +10,23 @@ import java.util.*;
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        
-        if(head.next == null) return true;
-        
+    
         Stack<Integer> stack = new Stack<>();
-        Queue<Integer> queue = new LinkedList<>();
         
         ListNode curr = head;
         
         while(curr != null) {
             stack.push(curr.val);
-            queue.add(curr.val);
             curr = curr.next;
         }
         
-        for(int i = 0; i < stack.size(); i++) {
-            if(queue.poll() != stack.pop()) return false;
+        curr = head;
+        
+        while(curr != null) {
+            if(curr.val != stack.pop()) return false;
+            curr = curr.next;
         }
-    
+
         
         return true;
     }
